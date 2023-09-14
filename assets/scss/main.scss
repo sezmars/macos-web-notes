@@ -1,0 +1,14 @@
+@import "core/fonts";
+@import "core/globals";
+@import "core/reset";
+@import "core/variables";
+
+@import "utils/mixins";
+@import "utils/utilities";
+
+svg {
+  fill: $col-lightCyanBlue;
+  &:hover {
+    fill: $col-mediumDarkCyanBlue
+  }
+}
