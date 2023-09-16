@@ -26,6 +26,8 @@ const isDeleteModalOpen = ref(false)
 
 const toggleDeleteModal = (value: boolean) => (isDeleteModalOpen.value = value)
 
+const resetStateEditiorView = () => (isPreviewActive.value = false)
+
 const { isPreviewActive } = storeToRefs(useStore())
 
 const isMenuOpen = ref(true)
@@ -47,6 +49,7 @@ onBeforeMount(async () => {
   <div class="home d-flex">
     <SidebarComponent
       v-show="isMenuOpen"
+      @add-new-note="resetStateEditiorView"
       @toggle-delete-modal="toggleDeleteModal(true)"
     />
     <div class="home__container">

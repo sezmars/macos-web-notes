@@ -9,12 +9,19 @@ const { notes, rawText } = storeToRefs(useStore())
 interface Emits {
   (event: Common.toggleMenu, value: boolean): void;
   (event: Common.toggleDeleteModal, value: boolean): void;
+  (event: Common.addNewNote, value?: boolean): void;
 }
 const emits = defineEmits<Emits>()
 
 const toggleDeleteModal = () => {
   if (rawText.value) { return emits(Common.toggleDeleteModal, true) }
 }
+
+const createNewNote = async () => {
+  await createNote()
+  return emits(Common.addNewNote, true)
+}
+
 const isMenuOpen = ref(true)
 const toggleMenu = (value: boolean) => (isMenuOpen.value = value)
 isMenuOpen.value = !isMobile
@@ -28,7 +35,7 @@ isMenuOpen.value = !isMobile
     >
       <div class="up d-flex align-items-start flex-column">
         <div class="d-flex gap-4">
-          <IconsAdd class="cursor-pointer" @click="createNote" />
+          <IconsAdd class="cursor-pointer" @click="createNewNote()" />
           <IconsDelete
             v-if="getQueryId() && getNotesLength()"
             class="cursor-pointer"
