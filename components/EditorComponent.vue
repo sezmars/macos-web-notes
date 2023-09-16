@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-const { saveNote } = useStore();
-const { rawText } = storeToRefs(useStore());
+const { saveNote } = useStore()
+const { rawText } = storeToRefs(useStore())
 </script>
 
 <template>
@@ -9,7 +9,7 @@ const { rawText } = storeToRefs(useStore());
       v-model="rawText"
       class="editor__area"
       @input="saveNote()"
-    ></textarea>
+    />
   </div>
 </template>
 

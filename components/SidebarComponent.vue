@@ -1,75 +1,76 @@
 <script lang="ts" setup>
-const { getNotesLength, getQueryId } = useStore();
-const { isMobile } = useDevice();
-const { setCurrentNote, navigateCurrentNote, createNote } = useStore();
-const { notes, rawText } = storeToRefs(useStore());
+const { getNotesLength, getQueryId } = useStore()
+const { isMobile } = useDevice()
+const { setCurrentNote, navigateCurrentNote, createNote } = useStore()
+const { notes, rawText } = storeToRefs(useStore())
 
 interface Emits {
-  (event: "toggle-menu", value: boolean): void;
-  (event: "toggle-delete-modal", value: boolean): void;
+  (event: 'toggle-menu', value: boolean): void;
+  (event: 'toggle-delete-modal', value: boolean): void;
 }
-const emits = defineEmits<Emits>();
+const emits = defineEmits<Emits>()
 
 const toggleDeleteModal = () => {
-  if (rawText.value) return emits("toggle-delete-modal", true);
-};
-const isMenuOpen = ref(true);
-const toggleMenu = (value: boolean) => (isMenuOpen.value = value);
-isMenuOpen.value = !isMobile;
+  if (rawText.value) { return emits('toggle-delete-modal', true) }
+}
+const isMenuOpen = ref(true)
+const toggleMenu = (value: boolean) => (isMenuOpen.value = value)
+isMenuOpen.value = !isMobile
 </script>
 
 <template>
-  <div
-    class="sidebar d-flex align-items-start flex-column transition"
-    :class="{ hidden: !isMenuOpen, open: isMenuOpen }"
-  >
-    <div class="up d-flex align-items-start flex-column">
-      <div class="d-flex gap-4">
-        <IconsAdd class="cursor-pointer" @click="createNote" />
-        <IconsDelete
-          v-if="getQueryId() && getNotesLength()"
-          class="cursor-pointer"
-          @click="toggleDeleteModal"
-        />
-      </div>
+  <div class="d-flex">
+    <div
+      class="sidebar d-flex align-items-start flex-column transition"
+      :class="{ hidden: !isMenuOpen, open: isMenuOpen }"
+    >
+      <div class="up d-flex align-items-start flex-column">
+        <div class="d-flex gap-4">
+          <IconsAdd class="cursor-pointer" @click="createNote" />
+          <IconsDelete
+            v-if="getQueryId() && getNotesLength()"
+            class="cursor-pointer"
+            @click="toggleDeleteModal"
+          />
+        </div>
 
-      <ul v-if="getNotesLength()" class="notes__list d-flex flex-column">
-        <li
-          v-for="note in notes"
-          :class="getQueryId() === note.id ? 'active' : ''"
-          class="notes__list-note d-flex align-items-center gap-6"
-          @click="
-            setCurrentNote(note.id);
-            navigateCurrentNote(note.id);
-          "
-        >
-          <div class="notes__list-note-info d-flex flex-column gap-3">
-            <span
-              class="notes__list-note-info-name weight-500 text-overflow-ellipsis"
-              >{{ note.title }}</span
-            >
-            <div class="d-flex">
+        <ul v-if="getNotesLength()" class="notes__list d-flex flex-column">
+          <li
+            v-for="note in notes"
+            :key="note.id"
+            :class="getQueryId() === note.id ? 'active' : ''"
+            class="notes__list-note d-flex align-items-center gap-6"
+            @click="
+              setCurrentNote(note.id);
+              navigateCurrentNote(note.id);
+            "
+          >
+            <div class="notes__list-note-info d-flex flex-column gap-3">
               <span
-                class="notes__list-note-info-date weight-400 text-overflow-ellipsis"
+                class="notes__list-note-info-name weight-500 text-overflow-ellipsis"
+              >{{ note.title }}</span>
+              <div class="d-flex">
+                <span
+                  class="notes__list-note-info-date weight-400 text-overflow-ellipsis"
                 >{{ formatDate(note.updated) }} &nbsp;
-              </span>
-              <span
-                class="notes__list-note-info-date weight-300 text-overflow-ellipsis"
-              >
-                {{ truncateText(note.content, 20) }}</span
-              >
+                </span>
+                <span
+                  class="notes__list-note-info-date weight-300 text-overflow-ellipsis"
+                >
+                  {{ truncateText(note.content, 20) }}</span>
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
+      <div v-if="!getNotesLength()" class="d-flex emty">
+        <span>No notes</span>
+      </div>
     </div>
-    <div v-if="!getNotesLength()" class="d-flex emty">
-      <span>No notes</span>
-    </div>
+    <button class="menu" @click="toggleMenu(!isMenuOpen)">
+      <IconsMenu :variant="isMenuOpen ? 'close' : 'open'" />
+    </button>
   </div>
-  <button class="menu" @click="toggleMenu(!isMenuOpen)">
-    <IconsMenu :variant="isMenuOpen ? 'close' : 'open'" />
-  </button>
 </template>
 
 <style lang="scss" scoped>

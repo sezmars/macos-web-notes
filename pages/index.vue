@@ -4,43 +4,43 @@ const {
   getNotesLength,
   navigateCurrentNote,
   initStoreNotes,
-  setCurrentNote,
-} = useStore();
+  setCurrentNote
+} = useStore()
 
 useHead({
-  title: "MacOS Note App",
+  title: 'MacOS Note App',
   meta: [
     {
-      name: "viewport",
+      name: 'viewport',
       content:
-        "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+        'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
     },
     {
-      name: "description",
-      content: "Home page of MacOS Note App",
-    },
-  ],
-});
+      name: 'description',
+      content: 'Home page of MacOS Note App'
+    }
+  ]
+})
 
-const isDeleteModalOpen = ref(false);
+const isDeleteModalOpen = ref(false)
 
-const toggleDeleteModal = (value: boolean) => (isDeleteModalOpen.value = value);
+const toggleDeleteModal = (value: boolean) => (isDeleteModalOpen.value = value)
 
-const { isPreviewActive } = storeToRefs(useStore());
+const { isPreviewActive } = storeToRefs(useStore())
 
-const isMenuOpen = ref(true);
+const isMenuOpen = ref(true)
 
 onBeforeMount(async () => {
-  const { getNotes } = useMdNotes();
-  const data = await getNotes();
+  const { getNotes } = useMdNotes()
+  const data = await getNotes()
 
   if (data.length) {
-    await initStoreNotes();
-    setCurrentNote(getQueryId());
+    await initStoreNotes()
+    setCurrentNote(getQueryId())
   } else {
-    await navigateCurrentNote("");
+    await navigateCurrentNote('')
   }
-});
+})
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "macos-note-app",
   "private": true,
   "scripts": {
     "build": "nuxt build",
@@ -7,23 +7,18 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
-    "lint:prettier": "prettier --check .",
-    "lint": "npm run lint:js && npm run lint:prettier",
-    "lintfix": "prettier --write --list-different . && npm run lint:js --fix"
+    "lint:check": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
+    "lint:fix": "npm run lint:check --fix"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/types": "^2.17.1",
     "@nuxt/typescript-build": "^3.0.1",
+    "@nuxtjs/eslint-config": "^12.0.0",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@types/node": "^18",
-    "@typescript-eslint/parser": "^6.7.0",
     "eslint": "^8.49.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
     "nuxt": "^3.7.1",
-    "prettier": "^3.0.3",
     "sass": "^1.67.0",
     "typescript": "^5.2.2"
   },

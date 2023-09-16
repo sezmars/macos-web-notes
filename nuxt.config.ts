@@ -1,21 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  css: ["~/assets/scss/main.scss"],
+  css: ['~/assets/scss/main.scss'],
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "@/assets/scss/core/_variables.scss"; @import "@/assets/scss/utils/_mixins.scss";`,
-        },
-      },
-    },
+          additionalData: '@import "@/assets/scss/core/_variables.scss"; @import "@/assets/scss/utils/_mixins.scss";'
+        }
+      }
+    }
   },
   imports: {
-    dirs: ["store"],
+    dirs: ['store']
   },
-  modules: ["@pinia/nuxt", "@nuxtjs/device"],
+  modules: ['@pinia/nuxt', '@nuxtjs/device'],
   pinia: {
-    autoImports: ["defineStore", "storeToRefs"],
+    autoImports: ['defineStore', 'storeToRefs']
   },
-  devtools: { enabled: true },
-});
+  devtools: { enabled: true }
+})

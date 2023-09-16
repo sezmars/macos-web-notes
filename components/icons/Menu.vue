@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 interface Props {
-  variant: "open" | "close";
+  variant: 'open' | 'close';
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 
 <template>

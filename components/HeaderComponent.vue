@@ -1,20 +1,22 @@
 <script lang="ts" setup>
-const { currentNoteUpdateDate, isPreviewActive } = storeToRefs(useStore());
+import { Common } from '~/utils/enums'
+
+const { currentNoteUpdateDate, isPreviewActive } = storeToRefs(useStore())
 
 interface Emits {
   (event: Common.toggleMenu, value: boolean): void;
   (event: Common.toggleDeleteModal, value: boolean): void;
 }
-const emits = defineEmits<Emits>();
+const emits = defineEmits<Emits>()
 const props = defineProps({
-  dateState: Boolean,
-});
-const isMenuOpen = ref(false);
+  dateState: Boolean
+})
+const isMenuOpen = ref(false)
 
 const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-  emits(Common.toggleMenu, isMenuOpen.value);
-};
+  isMenuOpen.value = !isMenuOpen.value
+  emits(Common.toggleMenu, isMenuOpen.value)
+}
 </script>
 
 <template>

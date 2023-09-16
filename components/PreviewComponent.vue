@@ -1,22 +1,24 @@
 <script lang="ts" setup>
-import { Remarkable } from "remarkable";
 
-const { rawText, parsedText, isPreviewActive } = storeToRefs(useStore());
+import { Remarkable } from 'remarkable'
+import { linkify } from 'remarkable/linkify'
+
+const { rawText, parsedText, isPreviewActive } = storeToRefs(useStore())
 
 const md = new Remarkable({
   html: true,
   breaks: true,
   linkify: true,
-  typographer: true,
-});
+  typographer: true
+}).use(linkify)
 
 const parseMarkdown = (text: string) => {
-  return md.render(text);
-};
+  return md.render(text)
+}
 
 watchEffect(() => {
-  parsedText.value = parseMarkdown(rawText.value);
-});
+  parsedText.value = parseMarkdown(rawText.value)
+})
 </script>
 
 <template>
@@ -25,7 +27,7 @@ watchEffect(() => {
       class="preview__area"
       :class="{ active: isPreviewActive }"
       v-html="parsedText"
-    ></div>
+    />
   </div>
 </template>
 

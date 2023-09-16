@@ -1,39 +1,45 @@
 <script lang="ts" setup>
-const { navigateCurrentNote } = useStore();
-const { noteTitle, rawText, notes, currentNoteId } = storeToRefs(useStore());
+import { Common } from '~/utils/enums'
+
+const { navigateCurrentNote } = useStore()
+const { noteTitle, rawText, notes, currentNoteId } = storeToRefs(useStore())
 
 interface Emit {
   (event: Common.toggleDeleteModal, value: boolean): void;
 }
 
-const emits = defineEmits<Emit>();
+const emits = defineEmits<Emit>()
 
 const toggleDeleteModal = (value: boolean) =>
-  emits(Common.toggleDeleteModal, value);
+  emits(Common.toggleDeleteModal, value)
 
 const deleteNote = async () => {
-  const { deleteNote, getNotes } = useMdNotes();
-  await deleteNote(currentNoteId.value);
-  notes.value = await getNotes();
-  noteTitle.value = Common.newNote;
-  rawText.value = "";
-  toggleDeleteModal(false);
-  await navigateCurrentNote("");
-};
+  const { deleteNote, getNotes } = useMdNotes()
+  await deleteNote(currentNoteId.value)
+  notes.value = await getNotes()
+  noteTitle.value = Common.newNote
+  rawText.value = ''
+  toggleDeleteModal(false)
+  await navigateCurrentNote('')
+}
 </script>
 
 <template>
-  <div class="delete__modal d-flex flex-column w-100 h-100 position-absolute">
-    <h4 class="weight-700">Delete this note?</h4>
-    <p class="weight-400">
-      Are you sure you want to delete the ‘{{ noteTitle }}’ note and its
-      contents? This action cannot be reversed.
-    </p>
-    <button class="w-100 weight-400" @click="deleteNote">
-      Confirm & Delete
-    </button>
+  <div>
+    <div class="delete__modal d-flex flex-column w-100 h-100 position-absolute">
+      <h4 class="weight-700">
+        Delete this note?
+      </h4>
+      <p class="weight-400">
+        Are you sure you want to delete the ‘{{ noteTitle }}’ note and its
+        contents? This action cannot be reversed.
+      </p>
+      <button class="w-100 weight-400" @click="deleteNote">
+        Confirm & Delete
+      </button>
+    </div>
+    <div class="modal-overlay" @click="toggleDeleteModal(false)" />
   </div>
-  <div class="modal-overlay" @click="toggleDeleteModal(false)"></div>
 </template>
 
 <style lang="scss" scoped>

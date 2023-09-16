@@ -1,7 +1,7 @@
 <template>
   <div class="input-icon-wrap">
     <span class="input-icon"><IconsSearch /></span>
-    <input placeholder="Search" type="text" class="input-with-icon" />
+    <input placeholder="Search" type="text" class="input-with-icon">
   </div>
 </template>
 <script setup lang="ts"></script>
