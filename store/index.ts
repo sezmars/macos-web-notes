@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 export const useStore = defineStore("store", () => {
-  const noteTitle = ref(Common.newNote);
+  const noteTitle = ref(Common.newNote as string);
   const rawText = ref("");
   const parsedText = ref("");
   const isPreviewActive = ref(false);
@@ -28,6 +28,11 @@ export const useStore = defineStore("store", () => {
           }
         : {},
     });
+  };
+
+  const initStoreNotes = async () => {
+    const { getNotes } = useMdNotes();
+    notes.value = await getNotes();
   };
 
   const saveNote = async () => {
@@ -60,7 +65,7 @@ export const useStore = defineStore("store", () => {
 
     const noteObj: Note = {
       id: window.crypto.getRandomValues(new Uint32Array(1))[0].toString(16),
-      title: Common.newNote,
+      title: Common.newNote as string,
       content: " ",
       created: new Date().toISOString(),
       updated: new Date().toISOString(),
@@ -96,5 +101,6 @@ export const useStore = defineStore("store", () => {
     navigateCurrentNote,
     getNotesLength,
     getQueryId,
+    initStoreNotes,
   };
 });
