@@ -1,56 +1,119 @@
 <script lang="ts" setup>
-const { docs } = storeToRefs(useStore());
-const { setCurrentDoc } = useStore();
+const { getNotesLength, getQueryId } = useStore();
+const { isMobile } = useDevice();
+const { setCurrentNote, navigateCurrentNote, createNote } = useStore();
+const { notes, rawText } = storeToRefs(useStore());
+
+interface Emits {
+  (event: "toggle-menu", value: boolean): void;
+  (event: "toggle-delete-modal", value: boolean): void;
+}
+const emits = defineEmits<Emits>();
+
+const toggleDeleteModal = () => {
+  if (rawText.value) return emits("toggle-delete-modal", true);
+};
+const isMenuOpen = ref(true);
+const toggleMenu = (value: boolean) => (isMenuOpen.value = value);
+isMenuOpen.value = !isMobile;
 </script>
 
 <template>
-  <div class="sidebar d-flex align-items-start flex-column">
+  <div
+    class="sidebar d-flex align-items-start flex-column transition"
+    :class="{ hidden: !isMenuOpen, open: isMenuOpen }"
+  >
     <div class="up d-flex align-items-start flex-column">
       <div class="d-flex gap-4">
-        <IconsAdd class="cursor-pointer" />
-        <IconsDelete class="cursor-pointer" />
+        <IconsAdd class="cursor-pointer" @click="createNote" />
+        <IconsDelete
+          v-if="getQueryId() && getNotesLength()"
+          class="cursor-pointer"
+          @click="toggleDeleteModal"
+        />
       </div>
 
-      <ul v-if="docs && docs.length > 0" class="docs__list d-flex flex-column">
+      <ul v-if="getNotesLength()" class="notes__list d-flex flex-column">
         <li
-          v-for="doc in docs"
-          class="docs__list-doc d-flex align-items-center gap-6"
-          @click="setCurrentDoc(doc.id)"
+          v-for="note in notes"
+          :class="getQueryId() === note.id ? 'active' : ''"
+          class="notes__list-note d-flex align-items-center gap-6"
+          @click="
+            setCurrentNote(note.id);
+            navigateCurrentNote(note.id);
+          "
         >
-          <div class="docs__list-doc-info d-flex flex-column gap-3">
+          <div class="notes__list-note-info d-flex flex-column gap-3">
             <span
-              class="docs__list-doc-info-name weight-500 text-overflow-ellipsis"
-              >{{ doc.title }}</span
+              class="notes__list-note-info-name weight-500 text-overflow-ellipsis"
+              >{{ note.title }}</span
             >
             <div class="d-flex">
               <span
-                class="docs__list-doc-info-date weight-400 text-overflow-ellipsis"
-                >{{ formatDate(doc.created) }} &nbsp;
+                class="notes__list-note-info-date weight-400 text-overflow-ellipsis"
+                >{{ formatDate(note.updated) }} &nbsp;
               </span>
               <span
-                class="docs__list-doc-info-date weight-300 text-overflow-ellipsis"
+                class="notes__list-note-info-date weight-300 text-overflow-ellipsis"
               >
-                {{ truncateText(doc.content, 20) }}</span
+                {{ truncateText(note.content, 20) }}</span
               >
             </div>
           </div>
         </li>
       </ul>
     </div>
-
-    <div class="down">
-      <Toggle />
+    <div v-if="!getNotesLength()" class="d-flex emty">
+      <span>No notes</span>
     </div>
   </div>
+  <button class="menu" @click="toggleMenu(!isMenuOpen)">
+    <IconsMenu :variant="isMenuOpen ? 'close' : 'open'" />
+  </button>
 </template>
 
 <style lang="scss" scoped>
+.hidden,
+.open {
+  -webkit-transition: width 0.5s linear;
+  -moz-transition: width 0.5s linear;
+  -ms-transition: width 0.5s linear;
+  -o-transition: width 0.5s linear;
+  transition: width 0.5s linear;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease-in-out;
+  z-index: -9999;
+  width: 0;
+  padding: 0 !important;
+}
+
+.open {
+  width: 350px;
+}
+
+.menu {
+  display: flex;
+  padding: 1.7rem 1rem 1rem 1rem;
+}
+
 .sidebar {
-  width: 30rem;
   height: 100vh;
   padding: 2.7rem 2.4rem;
   justify-content: space-between;
   border-right: 1px solid $col-lightGrayShade;
+
+  @media (max-width: 480px) {
+    width: 28rem;
+  }
+
+  .emty {
+    margin: 0 auto;
+    color: $col-lightCyanBlue;
+  }
 
   .up {
     gap: 2.9rem;
@@ -61,12 +124,18 @@ const { setCurrentDoc } = useStore();
       letter-spacing: 0.3rem;
     }
 
-    .docs__list {
+    .notes__list {
       gap: 2.6rem;
 
-      &-doc {
+      &-note {
         cursor: pointer;
         padding: 20px 14px;
+        width: 300px;
+
+        @media (max-width: 480px) {
+          width: 230px;
+        }
+
         &:hover {
           background: $col-yellorOrangeShade;
           border-radius: 7px;
@@ -86,6 +155,10 @@ const { setCurrentDoc } = useStore();
           }
         }
       }
+    }
+    .active {
+      background: $col-lightGrayShade;
+      border-radius: 7px;
     }
   }
 }
