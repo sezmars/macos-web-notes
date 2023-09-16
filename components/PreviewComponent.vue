@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 
 import { Remarkable } from 'remarkable'
-import { linkify } from 'remarkable/linkify'
 
 const { rawText, parsedText, isPreviewActive } = storeToRefs(useStore())
 
@@ -10,7 +9,7 @@ const md = new Remarkable({
   breaks: true,
   linkify: true,
   typographer: true
-}).use(linkify)
+})
 
 const parseMarkdown = (text: string) => {
   return md.render(text)
