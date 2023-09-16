@@ -1,4 +1,4 @@
-import {Common} from "../utils/enums";
+import {Common} from "~/utils/enums";
 
 declare global {
     interface Note {
