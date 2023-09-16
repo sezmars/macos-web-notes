@@ -1,17 +1,19 @@
 <script lang="ts" setup>
+import { Common } from '~/utils/enums'
+
 const { getNotesLength, getQueryId } = useStore()
 const { isMobile } = useDevice()
 const { setCurrentNote, navigateCurrentNote, createNote } = useStore()
 const { notes, rawText } = storeToRefs(useStore())
 
 interface Emits {
-  (event: 'toggle-menu', value: boolean): void;
-  (event: 'toggle-delete-modal', value: boolean): void;
+  (event: Common.toggleMenu, value: boolean): void;
+  (event: Common.toggleDeleteModal, value: boolean): void;
 }
 const emits = defineEmits<Emits>()
 
 const toggleDeleteModal = () => {
-  if (rawText.value) { return emits('toggle-delete-modal', true) }
+  if (rawText.value) { return emits(Common.toggleDeleteModal, true) }
 }
 const isMenuOpen = ref(true)
 const toggleMenu = (value: boolean) => (isMenuOpen.value = value)
