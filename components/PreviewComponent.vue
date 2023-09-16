@@ -37,11 +37,10 @@ watchEffect(() => {
 
   &__area {
     flex: 1;
-    padding: 0.9rem 1.6rem;
     background-color: var(--bg-color);
     color: var(--header-text-color);
     overflow: auto;
-    padding-bottom: 10rem;
+    padding: 0.9rem 1.6rem 10rem;
     -ms-overflow-style: none;
     scrollbar-width: none;
 

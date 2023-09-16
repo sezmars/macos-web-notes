@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+
 import { Common } from '~/utils/enums'
 
 export const useStore = defineStore('store', () => {

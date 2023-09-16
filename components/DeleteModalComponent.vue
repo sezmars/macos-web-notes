@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { Common } from '~/utils/enums'
 
-const { navigateCurrentNote } = useStore()
 const { noteTitle, rawText, notes, currentNoteId } = storeToRefs(useStore())
+
+const { navigateCurrentNote } = useStore()
 
 interface Emit {
   (event: Common.toggleDeleteModal, value: boolean): void;
@@ -56,7 +57,7 @@ const deleteNote = async () => {
   padding: 2.4rem;
   border-radius: 0.4rem;
   z-index: 2;
-  box-shadow: #110c2e26 0rem 4.8rem 10rem 0rem;
+  box-shadow: #110c2e26 0 4.8rem 10rem 0;
 
   h4 {
     @include font(2rem, 2.6rem);
