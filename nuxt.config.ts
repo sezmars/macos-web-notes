@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["store"],
   },
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "@nuxtjs/device"],
   pinia: {
     autoImports: ["defineStore", "storeToRefs"],
   },
