@@ -1,6 +1,12 @@
 <script lang="ts" setup>
-const { saveNote } = useStore()
+const { saveNote, createNote, getQueryId } = useStore()
 const { rawText } = storeToRefs(useStore())
+
+const createNewNote = async () => {
+  if (!getQueryId()) {
+    await createNote()
+  }
+}
 </script>
 
 <template>
@@ -8,7 +14,7 @@ const { rawText } = storeToRefs(useStore())
     <textarea
       v-model="rawText"
       class="editor__area"
-      @input="saveNote()"
+      @input="saveNote(); createNewNote()"
     />
   </div>
 </template>
