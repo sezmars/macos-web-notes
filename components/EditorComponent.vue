@@ -32,6 +32,7 @@ onMounted(() => {
 .editor {
   overflow: auto;
   height: 100%;
+  margin-top: 10px;
 
   &__area {
     flex: 1;

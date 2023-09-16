@@ -111,7 +111,7 @@ isMenuOpen.value = !isMobile
 .sidebar {
   height: 100vh;
   padding: 2.7rem 2.4rem;
-  justify-content: space-between;
+  justify-content: start;
   border-right: 1px solid $col-lightGrayShade;
 
   @media (max-width: 480px) {
