@@ -7,11 +7,20 @@ const createNewNote = async () => {
     await createNote()
   }
 }
+
+const textarea = ref(null)
+
+onMounted(() => {
+  if (textarea && textarea.value) {
+    (textarea.value as HTMLTextAreaElement).focus()
+  }
+})
 </script>
 
 <template>
   <div class="editor d-flex flex-column">
     <textarea
+      ref="textarea"
       v-model="rawText"
       class="editor__area"
       @input="saveNote(); createNewNote()"

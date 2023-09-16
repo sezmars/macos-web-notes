@@ -26,7 +26,7 @@ const isDeleteModalOpen = ref(false)
 
 const toggleDeleteModal = (value: boolean) => (isDeleteModalOpen.value = value)
 
-const resetStateEditiorView = () => (isPreviewActive.value = false)
+const resetStateEditiorView = (value: boolean) => (isPreviewActive.value = value)
 
 const { isPreviewActive } = storeToRefs(useStore())
 

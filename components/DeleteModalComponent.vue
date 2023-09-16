@@ -1,15 +1,12 @@
 <script lang="ts" setup>
+import { Emits } from '~/types'
 import { Common } from '~/utils/enums'
 
 const { noteTitle, rawText, notes, currentNoteId } = storeToRefs(useStore())
 
 const { navigateCurrentNote } = useStore()
 
-interface Emit {
-  (event: Common.toggleDeleteModal, value: boolean): void;
-}
-
-const emits = defineEmits<Emit>()
+const emits = defineEmits<Emits>()
 
 const toggleDeleteModal = (value: boolean) =>
   emits(Common.toggleDeleteModal, value)

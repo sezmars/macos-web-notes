@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Emits } from '~/types'
 import { Common } from '~/utils/enums'
 
 const { getNotesLength, getQueryId } = useStore()
@@ -6,11 +7,6 @@ const { isMobile } = useDevice()
 const { setCurrentNote, navigateCurrentNote, createNote } = useStore()
 const { notes, rawText } = storeToRefs(useStore())
 
-interface Emits {
-  (event: Common.toggleMenu, value: boolean): void;
-  (event: Common.toggleDeleteModal, value: boolean): void;
-  (event: Common.addNewNote, value?: boolean): void;
-}
 const emits = defineEmits<Emits>()
 
 const toggleDeleteModal = () => {
@@ -19,7 +15,7 @@ const toggleDeleteModal = () => {
 
 const createNewNote = async () => {
   await createNote()
-  return emits(Common.addNewNote, true)
+  return emits(Common.addNewNote, false)
 }
 
 const isMenuOpen = ref(true)
