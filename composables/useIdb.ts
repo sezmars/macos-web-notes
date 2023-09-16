@@ -11,7 +11,19 @@ export const useMdNotes = () => {
     const db = await dbPromise;
     const tx = db.transaction("mdNotes", "readonly");
     const store = tx.objectStore("mdNotes");
-    return await store.getAll();
+
+    const data = await store.getAll();
+    const sortedNotes = async () => {
+      if (data.length) {
+        data.sort(
+          (a: Note, b: Note) =>
+            new Date(b.updated).getTime() - new Date(a.updated).getTime(),
+        );
+        return data;
+      }
+    };
+
+    return (await sortedNotes()) || (await store.getAll());
   };
 
   const getNote = async (id: string) => {
