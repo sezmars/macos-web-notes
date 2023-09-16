@@ -98,9 +98,13 @@ isMenuOpen.value = !isMobile
 }
 
 .open {
-  width: 350px;
+  width: 35rem;
   opacity: 1;
   transition: all 0.5s ease-in-out;
+
+  @media (max-width: 480px) {
+    width: 28rem;
+  }
 }
 
 .menu {
@@ -113,10 +117,6 @@ isMenuOpen.value = !isMobile
   padding: 2.7rem 2.4rem;
   justify-content: start;
   border-right: 1px solid $col-lightGrayShade;
-
-  @media (max-width: 480px) {
-    width: 28rem;
-  }
 
   .emty {
     margin: 0 auto;
