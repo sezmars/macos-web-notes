@@ -1,22 +1,11 @@
 <script lang="ts" setup>
-import { Common } from '~/utils/enums'
 
 const { currentNoteUpdateDate, isPreviewActive } = storeToRefs(useStore())
 
-interface Emits {
-  (event: Common.toggleMenu, value: boolean): void;
-  (event: Common.toggleDeleteModal, value: boolean): void;
-}
-const emits = defineEmits<Emits>()
 const props = defineProps({
   dateState: Boolean
 })
-const isMenuOpen = ref(false)
 
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
-  emits(Common.toggleMenu, isMenuOpen.value)
-}
 </script>
 
 <template>
