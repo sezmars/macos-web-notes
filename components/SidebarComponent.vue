@@ -93,6 +93,8 @@ isMenuOpen.value = !isMobile;
 
 .open {
   width: 350px;
+  opacity: 1;
+  transition: all 0.5s ease-in-out;
 }
 
 .menu {
