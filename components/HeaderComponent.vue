@@ -29,7 +29,8 @@ const props = defineProps({
     </div>
 
     <div class="right d-flex align-items-center gap-9">
-      <SearchComponent />
+      <!-- TODO-->
+      <!-- <SearchComponent />-->
     </div>
   </header>
   <div
