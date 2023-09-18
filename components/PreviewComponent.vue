@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 import { Remarkable } from 'remarkable'
 
 const { rawText, parsedText, isPreviewActive } = storeToRefs(useStore())

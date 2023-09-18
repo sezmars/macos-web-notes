@@ -26,19 +26,16 @@ export const useMdNotes = () => {
 
       request.onsuccess = (event: Event) => {
         const data: Note[] = (event.target as IDBRequest).result as Note[]
-        const sortedNotes = () => {
-          if (data.length) {
-            data.sort(
-              (a: Note, b: Note) =>
-                new Date(b.updated).getTime() - new Date(a.updated).getTime()
-            )
-            resolve(data)
-          } else {
-            resolve(data)
-          }
-        }
 
-        sortedNotes()
+        if (data.length) {
+          data.sort(
+            (a: Note, b: Note) =>
+              new Date(b.updated).getTime() - new Date(a.updated).getTime()
+          )
+          resolve(data)
+        } else {
+          resolve(data)
+        }
       }
 
       request.onerror = (event: Event) => {

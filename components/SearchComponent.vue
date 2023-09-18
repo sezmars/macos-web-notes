@@ -1,17 +1,4 @@
-<template>
-  <div class="input-icon-wrap">
-    <span class="input-icon"><IconsSearch /></span>
-    <input
-      ref="input"
-      v-model="text"
-      type="text"
-      placeholder="Search"
-      class="input-with-icon"
-      @input="search"
-    >
-  </div>
-</template>
-<script setup lang="ts">
+<script lang="ts" setup>
 const { searchNotes } = useStore()
 const route = useRoute()
 
@@ -36,6 +23,20 @@ onMounted(async () => {
 })
 
 </script>
+
+<template>
+  <div class="input-icon-wrap">
+    <span class="input-icon"><IconsSearch /></span>
+    <input
+      ref="input"
+      v-model="text"
+      type="text"
+      placeholder="Search"
+      class="input-with-icon"
+      @input="search"
+    >
+  </div>
+</template>
 
 <style lang="scss">
 .input-icon-wrap {

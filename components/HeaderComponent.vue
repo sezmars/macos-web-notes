@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 const { currentNoteUpdateDate, isPreviewActive } = storeToRefs(useStore())
 const {
   getQueryId,
