@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 const {
   getQueryId,
-  getNotesLength,
   navigateCurrentNote,
   initStoreNotes,
   setCurrentNote
@@ -58,7 +57,6 @@ onBeforeMount(async () => {
         :class="{ main: !isPreviewActive }"
       >
         <HeaderComponent
-          v-if="getQueryId() && getNotesLength()"
           :date-state="!isPreviewActive"
         />
         <EditorComponent v-show="!isPreviewActive" />

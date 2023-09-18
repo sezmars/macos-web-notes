@@ -1,10 +1,43 @@
 <template>
   <div class="input-icon-wrap">
     <span class="input-icon"><IconsSearch /></span>
-    <input placeholder="Search" type="text" class="input-with-icon">
+    <input
+      ref="input"
+      v-model="text"
+      type="text"
+      placeholder="Search"
+      class="input-with-icon"
+      @input="search"
+    >
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { searchNotes } = useStore()
+const { getNotes } = useMdNotes()
+const route = useRoute()
+
+const input = ref(null)
+const text: string = route.query.q as string
+
+const search = async () => {
+  const value = (input.value! as HTMLInputElement)?.value
+
+  await navigateTo({
+    path: '/',
+    query: { q: value }
+  })
+
+  await searchNotes(value)
+}
+
+onMounted(async () => {
+  if (text) {
+    await getNotes()
+    await search()
+  }
+})
+
+</script>
 
 <style lang="scss">
 .input-icon-wrap {
