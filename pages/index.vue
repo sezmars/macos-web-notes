@@ -62,6 +62,7 @@ onBeforeMount(async () => {
       >
         <HeaderComponent
           :date-state="!isPreviewActive"
+          @search-mode="resetStateEditiorView"
         />
         <EditorComponent v-show="!isPreviewActive" />
         <PreviewComponent v-show="isPreviewActive" />

@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 
 const { currentNoteUpdateDate, isPreviewActive } = storeToRefs(useStore())
+const {
+  getQueryId,
+  getNotesLength
+} = useStore()
 
 const props = defineProps({
   dateState: Boolean
@@ -33,7 +37,7 @@ const props = defineProps({
     </div>
   </header>
   <div
-    v-if="props.dateState && currentNoteUpdateDate"
+    v-if="props.dateState && currentNoteUpdateDate && getQueryId() && getNotesLength()"
     class="d-flex justify-content-center date"
   >
     {{ formatDate(currentNoteUpdateDate, "fullDate") }}
