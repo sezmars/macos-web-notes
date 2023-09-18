@@ -5,12 +5,12 @@ import { Common } from '~/utils/enums'
 const { getNotesLength, getQueryId } = useStore()
 const { isMobile } = useDevice()
 const { setCurrentNote, navigateCurrentNote, createNote } = useStore()
-const { notes, rawText } = storeToRefs(useStore())
+const { notes, rawText, currentNoteId } = storeToRefs(useStore())
 
 const emits = defineEmits<Emits>()
 
 const toggleDeleteModal = () => {
-  if (rawText.value) { return emits(Common.toggleDeleteModal, true) }
+  if (rawText.value || currentNoteId.value) { return emits(Common.toggleDeleteModal, true) }
 }
 
 const createNewNote = async () => {
