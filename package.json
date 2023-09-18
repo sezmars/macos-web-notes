@@ -8,7 +8,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint:check": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
-    "lint:fix": "npm run lint:check --fix"
+    "lint:fix": "npm run lint:check --fix",
+    "deploy": "nuxt generate && touch .output/public/.nojekyll && gh-pages --dotfiles -d .output/public"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -21,7 +22,8 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "nuxt": "^3.7.1",
     "sass": "^1.67.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "gh-pages": "^4.0.0"
   },
   "dependencies": {
     "@nuxtjs/device": "^3.1.1",
