@@ -30,7 +30,7 @@ const search = async () => {
   await searchNotes(value)
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
   if (text) {
     await getNotes()
     await search()
