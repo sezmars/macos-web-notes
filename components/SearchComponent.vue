@@ -13,7 +13,6 @@
 </template>
 <script setup lang="ts">
 const { searchNotes } = useStore()
-const { getNotes } = useMdNotes()
 const route = useRoute()
 
 const input = ref(null)
@@ -30,9 +29,8 @@ const search = async () => {
   await searchNotes(value)
 }
 
-onBeforeMount(async () => {
+onMounted(async () => {
   if (text) {
-    await getNotes()
     await search()
   }
 })

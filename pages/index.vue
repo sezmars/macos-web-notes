@@ -61,6 +61,7 @@ onBeforeMount(async () => {
         :class="{ main: !isPreviewActive }"
       >
         <HeaderComponent
+          v-if="isLoadData"
           :date-state="!isPreviewActive"
           @search-mode="resetStateEditiorView"
         />
