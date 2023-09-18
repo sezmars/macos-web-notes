@@ -21,6 +21,10 @@ const createNewNote = async () => {
 const isMenuOpen = ref(true)
 const toggleMenu = (value: boolean) => (isMenuOpen.value = value)
 isMenuOpen.value = !isMobile
+
+const props = defineProps({
+  isLoadData: Boolean
+})
 </script>
 
 <template>
@@ -68,7 +72,7 @@ isMenuOpen.value = !isMobile
           </li>
         </ul>
       </div>
-      <div v-if="!getNotesLength()" class="d-flex emty">
+      <div v-if="props.isLoadData && !getNotesLength()" class="d-flex emty">
         <span>No notes</span>
       </div>
     </div>

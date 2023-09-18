@@ -30,6 +30,7 @@ const resetStateEditiorView = (value: boolean) => (isPreviewActive.value = value
 const { isPreviewActive } = storeToRefs(useStore())
 
 const isMenuOpen = ref(true)
+const isLoadData = ref(false)
 
 onBeforeMount(async () => {
   const { getNotes } = useMdNotes()
@@ -41,6 +42,8 @@ onBeforeMount(async () => {
   } else {
     await navigateCurrentNote('')
   }
+
+  isLoadData.value = true
 })
 </script>
 
@@ -48,6 +51,7 @@ onBeforeMount(async () => {
   <div class="home d-flex">
     <SidebarComponent
       v-show="isMenuOpen"
+      :is-load-data="isLoadData"
       @add-new-note="resetStateEditiorView"
       @toggle-delete-modal="toggleDeleteModal(true)"
     />
