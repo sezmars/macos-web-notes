@@ -49,7 +49,7 @@ onBeforeMount(async () => {
 
 <template>
   <div class="home d-flex">
-    <SidebarComponent
+    <Sidebar
       v-show="isMenuOpen"
       :is-load-data="isLoadData"
       @add-new-note="resetStateEditiorView"
@@ -60,17 +60,17 @@ onBeforeMount(async () => {
         class="home__container-main d-flex flex-column"
         :class="{ main: !isPreviewActive }"
       >
-        <HeaderComponent
+        <Header
           v-if="isLoadData"
           :date-state="!isPreviewActive"
           @search-mode="resetStateEditiorView"
         />
-        <EditorComponent v-show="!isPreviewActive" />
-        <PreviewComponent v-show="isPreviewActive" />
+        <Editor v-show="!isPreviewActive" />
+        <Preview v-show="isPreviewActive" />
       </div>
     </div>
 
-    <DeleteModalComponent
+    <DeleteModal
       v-if="isDeleteModalOpen"
       @toggle-delete-modal="toggleDeleteModal"
     />
