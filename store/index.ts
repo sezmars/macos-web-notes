@@ -38,12 +38,12 @@ export const useStore = defineStore('store', () => {
   }
 
   const searchNotes = async (q: string) => {
-    q = q.toLowerCase().trim()
+    const prepareQ = q.toLowerCase().trim()
 
     const { getNotes } = useMdNotes()
     const notesFormDb = await getNotes()
 
-    notes.value = notesFormDb.filter((note: Note) => (note.title.toLowerCase().includes(q) || note.content.toLowerCase().includes(q)) && note)
+    notes.value = notesFormDb.filter((note: Note) => (note.title.toLowerCase().includes(prepareQ) || note.content.toLowerCase().includes(prepareQ)) && note)
   }
 
   const saveNote = async () => {
