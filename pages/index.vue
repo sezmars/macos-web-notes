@@ -20,17 +20,15 @@ useHead({
     }
   ]
 })
+const { isPreviewActive } = storeToRefs(useStore())
 
+const isMenuOpen = ref(true)
+const isLoadData = ref(false)
 const isDeleteModalOpen = ref(false)
 
 const toggleDeleteModal = (value: boolean) => (isDeleteModalOpen.value = value)
 
 const resetStateEditiorView = (value: boolean) => (isPreviewActive.value = value)
-
-const { isPreviewActive } = storeToRefs(useStore())
-
-const isMenuOpen = ref(true)
-const isLoadData = ref(false)
 
 onBeforeMount(async () => {
   const { getNotes } = useMdNotes()
@@ -52,7 +50,7 @@ onBeforeMount(async () => {
     <Sidebar
       v-show="isMenuOpen"
       :is-load-data="isLoadData"
-      @add-new-note="resetStateEditiorView"
+      @add-new-note="resetStateEditiorView(false)"
       @toggle-delete-modal="toggleDeleteModal(true)"
     />
     <div class="home__container">
@@ -63,7 +61,7 @@ onBeforeMount(async () => {
         <Header
           v-if="isLoadData"
           :date-state="!isPreviewActive"
-          @search-mode="resetStateEditiorView"
+          @search-mode="resetStateEditiorView(false)"
         />
         <Editor v-show="!isPreviewActive" />
         <Preview v-show="isPreviewActive" />
@@ -72,7 +70,7 @@ onBeforeMount(async () => {
 
     <DeleteModal
       v-if="isDeleteModalOpen"
-      @toggle-delete-modal="toggleDeleteModal"
+      @toggle-delete-modal="toggleDeleteModal(false)"
     />
   </div>
 </template>
