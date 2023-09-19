@@ -3,9 +3,11 @@ const { saveNote, createNote, getQueryId } = useStore()
 const { rawText } = storeToRefs(useStore())
 
 const createNewNote = async () => {
-  if (!getQueryId()) {
-    await createNote()
+  if (getQueryId()) {
+    return
   }
+
+  await createNote()
 }
 
 const textarea = ref(null)

@@ -10,7 +10,11 @@ const { notes, rawText, currentNoteId } = storeToRefs(useStore())
 const emits = defineEmits<Emits>()
 
 const toggleDeleteModal = () => {
-  if (rawText.value || currentNoteId.value) { return emits(Common.toggleDeleteModal, true) }
+  if (!rawText.value || !currentNoteId.value) {
+    return
+  }
+
+  emits(Common.toggleDeleteModal, true)
 }
 
 const createNewNote = async () => {
