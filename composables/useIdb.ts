@@ -21,7 +21,7 @@ export const useMdNotes = () => {
     const tx: IDBTransaction = db.transaction('mdNotes', 'readonly')
     const store: IDBObjectStore = tx.objectStore('mdNotes')
 
-    return new Promise<Note[]>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const request: IDBRequest = store.getAll()
 
       request.onsuccess = (event: Event) => {
@@ -49,7 +49,7 @@ export const useMdNotes = () => {
     const tx: IDBTransaction = db.transaction('mdNotes', 'readonly')
     const store: IDBObjectStore = tx.objectStore('mdNotes')
 
-    return new Promise<Note | undefined>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const request: IDBRequest = store.get(id)
 
       request.onsuccess = (event: Event) => {
@@ -67,7 +67,7 @@ export const useMdNotes = () => {
     const tx: IDBTransaction = db.transaction('mdNotes', 'readwrite')
     const store: IDBObjectStore = tx.objectStore('mdNotes')
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const request: IDBRequest = store.put(note)
 
       request.onsuccess = () => {
@@ -85,7 +85,7 @@ export const useMdNotes = () => {
     const tx: IDBTransaction = db.transaction('mdNotes', 'readwrite')
     const store: IDBObjectStore = tx.objectStore('mdNotes')
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const request: IDBRequest = store.add(note)
 
       request.onsuccess = () => {
@@ -103,7 +103,7 @@ export const useMdNotes = () => {
     const tx: IDBTransaction = db.transaction('mdNotes', 'readwrite')
     const store: IDBObjectStore = tx.objectStore('mdNotes')
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const request: IDBRequest = store.delete(id)
 
       request.onsuccess = () => {
