@@ -16,5 +16,4 @@ export interface Emits {
     (event: Common.toggleMenu, value: boolean): void;
     (event: Common.toggleDeleteModal, value: boolean): void;
     (event: Common.addNewNote, value?: boolean): void;
-    (event: Common.searchMode, value?: boolean): void;
 }

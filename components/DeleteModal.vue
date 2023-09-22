@@ -2,9 +2,9 @@
 import { Emits } from '~/types'
 import { Common } from '~/utils/enums'
 
-const { noteTitle, rawText, notes, currentNoteId } = storeToRefs(useStore())
+const { noteTitle, currentNoteId } = storeToRefs(useStore())
 
-const { navigateCurrentNote } = useStore()
+const { navigateCurrentNote, removeNote } = useStore()
 
 const emits = defineEmits<Emits>()
 
@@ -12,12 +12,10 @@ const toggleDeleteModal = (value: boolean) =>
   emits(Common.toggleDeleteModal, value)
 
 const deleteNote = async () => {
-  const { deleteNote, getNotes } = useMdNotes()
-  await deleteNote(currentNoteId.value)
-  notes.value = await getNotes()
-  noteTitle.value = Common.newNote
-  rawText.value = ''
+  await removeNote(currentNoteId.value)
+
   toggleDeleteModal(false)
+
   await navigateCurrentNote('')
 }
 </script>

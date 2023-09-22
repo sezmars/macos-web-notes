@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 const {
-  getQueryId,
   navigateCurrentNote,
   initStoreNotes,
   setCurrentNote
@@ -21,6 +20,7 @@ useHead({
   ]
 })
 const { isPreviewActive } = storeToRefs(useStore())
+const { id } = useQueryId()
 
 const isMenuOpen = ref(true)
 const isLoadData = ref(false)
@@ -31,12 +31,10 @@ const toggleDeleteModal = (value: boolean) => (isDeleteModalOpen.value = value)
 const resetStateEditiorView = (value: boolean) => (isPreviewActive.value = value)
 
 onBeforeMount(async () => {
-  const { getNotes } = useMdNotes()
-  const data = await getNotes()
+  await initStoreNotes()
 
-  if (data.length) {
-    await initStoreNotes()
-    setCurrentNote(getQueryId())
+  if (id.value) {
+    setCurrentNote(id.value)
   } else {
     await navigateCurrentNote('')
   }
@@ -61,7 +59,6 @@ onBeforeMount(async () => {
         <Header
           v-if="isLoadData"
           :date-state="!isPreviewActive"
-          @search-mode="resetStateEditiorView(false)"
         />
         <Editor v-show="!isPreviewActive" />
         <Preview v-show="isPreviewActive" />

@@ -2,8 +2,9 @@
 import { Emits } from '~/types'
 import { Common } from '~/utils/enums'
 
-const { getNotesLength, getQueryId } = useStore()
+const { getNotesLength } = useStore()
 const { isMobile } = useDevice()
+const { id } = useQueryId()
 const { setCurrentNote, navigateCurrentNote, createNote } = useStore()
 const { notes, rawText, currentNoteId } = storeToRefs(useStore())
 
@@ -41,7 +42,7 @@ const props = defineProps({
         <div class="d-flex gap-4">
           <IconsAdd class="cursor-pointer" @click="createNewNote()" />
           <IconsDelete
-            v-if="getQueryId() && getNotesLength()"
+            v-if="id && getNotesLength()"
             class="cursor-pointer"
             @click="toggleDeleteModal"
           />
@@ -51,7 +52,7 @@ const props = defineProps({
           <li
             v-for="note in notes"
             :key="note.id"
-            :class="getQueryId() === note.id ? 'active' : ''"
+            :class="id === note.id ? 'active' : ''"
             class="notes__list-note d-flex align-items-center gap-6"
             @click="
               setCurrentNote(note.id);

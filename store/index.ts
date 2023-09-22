@@ -21,37 +21,23 @@ export const useStore = defineStore('store', () => {
     }
   }
 
-  const navigateCurrentNote = async (id?: string) => {
-    await navigateTo({
-      path: '/',
-      query: id
-        ? {
-            note: id
-          }
-        : {}
-    })
-  }
-
   const initStoreNotes = async () => {
-    const { getNotes } = useMdNotes()
-    notes.value = await getNotes()
+    notes.value = await getNotesFromDb()
   }
 
   const searchNotes = async (q: string) => {
     const prepareQ = q.toLowerCase().trim()
 
-    const { getNotes } = useMdNotes()
-    const notesFormDb = await getNotes()
+    const notesFormDb = await getNotesFromDb()
 
     notes.value = notesFormDb.filter((note: Note) => (note.title.toLowerCase().includes(prepareQ) || note.content.toLowerCase().includes(prepareQ)) && note)
   }
 
   const saveNote = async () => {
-    const { saveNote, getNotes } = useMdNotes()
+    const { id } = useQueryId()
 
-    // check if note already exists
     const note: Note = notes.value.find(
-      (note: Note) => note.id === getQueryId()
+      (note: Note) => note.id === id.value
     )!
 
     const noteObj: Note = {
@@ -65,15 +51,13 @@ export const useStore = defineStore('store', () => {
     if (note) {
       noteObj.id = note.id
       noteObj.created = note.created
-      await saveNote(noteObj)
+      await saveNoteFromDb(noteObj)
     }
 
-    notes.value = await getNotes()
+    notes.value = await getNotesFromDb()
   }
 
   const createNote = async () => {
-    const { addNote, getNotes } = useMdNotes()
-
     const noteObj: Note = {
       id: window.crypto.getRandomValues(new Uint32Array(1))[0].toString(16),
       title: Common.newNote as string,
@@ -82,20 +66,36 @@ export const useStore = defineStore('store', () => {
       updated: new Date().toISOString()
     }
 
-    await addNote(noteObj)
+    await addNoteToDb(noteObj)
 
-    notes.value = await getNotes()
+    notes.value = await getNotesFromDb()
 
     setCurrentNote(noteObj.id)
     await navigateCurrentNote(noteObj.id)
   }
+
+  const removeNote = async (id: string) => {
+    await deleteNoteFromDb(id)
+
+    notes.value = await getNotesFromDb()
+
+    noteTitle.value = Common.newNote
+    rawText.value = ''
+  }
+
   const getNotesLength = () => {
     return notes.value && notes.value.length > 0
   }
 
-  const getQueryId = () => {
-    const route = useRoute()
-    return route.query.note as string
+  const navigateCurrentNote = async (id?: string) => {
+    await navigateTo({
+      path: '/',
+      query: id
+        ? {
+            note: id
+          }
+        : {}
+    })
   }
 
   return {
@@ -111,8 +111,8 @@ export const useStore = defineStore('store', () => {
     setCurrentNote,
     navigateCurrentNote,
     getNotesLength,
-    getQueryId,
     initStoreNotes,
-    searchNotes
+    searchNotes,
+    removeNote
   }
 })

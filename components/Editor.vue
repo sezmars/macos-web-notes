@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-const { saveNote, createNote, getQueryId } = useStore()
+const { saveNote, createNote } = useStore()
 const { rawText } = storeToRefs(useStore())
 
 const createNewNote = async () => {
-  if (getQueryId()) {
+  const { id } = useQueryId()
+
+  if (id.value) {
     return
   }
 
