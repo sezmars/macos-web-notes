@@ -19,7 +19,7 @@ const toggleDeleteModal = () => {
 }
 
 const createNewNote = async () => {
-  await createNote()
+  await createNote(true)
   return emits(Common.addNewNote, false)
 }
 

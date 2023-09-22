@@ -57,11 +57,11 @@ export const useStore = defineStore('store', () => {
     notes.value = await getNotesFromDb()
   }
 
-  const createNote = async () => {
+  const createNote = async (clearContent: boolean = false) => {
     const noteObj: Note = {
       id: window.crypto.getRandomValues(new Uint32Array(1))[0].toString(16),
       title: Common.newNote as string,
-      content: ' ',
+      content: clearContent ? ' ' : rawText.value,
       created: new Date().toISOString(),
       updated: new Date().toISOString()
     }
