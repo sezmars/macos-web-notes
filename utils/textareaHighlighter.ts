@@ -5,7 +5,7 @@
     https://github.com/sezmars/highlightTextarea
     *******************************************************/
 
-export class TextHighlight {
+export class TextAreaHighlight {
   private readonly origBkgColor: string
   private readonly ele: HTMLTextAreaElement
   private searchArg: string

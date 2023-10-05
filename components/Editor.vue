@@ -15,7 +15,7 @@ const createNewNote = async () => {
 const textarea = ref()
 const route = useRoute()
 
-let hilite: TextHighlight
+let hilite: TextAreaHighlight
 
 onUpdated(() => {
   setTimeout(() => {
@@ -31,7 +31,7 @@ onMounted(() => {
   if (textarea && textarea.value) {
     (textarea.value as HTMLTextAreaElement).focus()
 
-    hilite = new TextHighlight(textarea.value)
+    hilite = new TextAreaHighlight(textarea.value)
   }
 })
 </script>
