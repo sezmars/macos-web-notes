@@ -6,9 +6,3 @@
 @import "utils/mixins";
 @import "utils/utilities";
 
-svg {
-  fill: $col-lightCyanBlue;
-  &:hover {
-    fill: $col-mediumDarkCyanBlue
-  }
-}

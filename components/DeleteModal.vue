@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Emits } from '~/types'
-import { Common } from '~/utils/enums'
+import { Common } from '~/types/enums'
 
 const { noteTitle, currentNoteId } = storeToRefs(useStore())
 

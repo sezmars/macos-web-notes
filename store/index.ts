@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-import { Common } from '~/utils/enums'
+import { Common } from '~/types/enums'
 
 export const useStore = defineStore('store', () => {
   const noteTitle = ref(Common.newNote as string)

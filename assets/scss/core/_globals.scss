@@ -10,22 +10,57 @@ body {
 
 ::-webkit-scrollbar {
   width: 0.1rem;
-  background-color: #2b2d31;
 }
 
-// Dark Theme
 :root {
   --bg-color: #ffffff;
   --deeper-bg-color: #f5f5f5;
   --text-color: #35393f;
   --sub-text-color: #7c8187;
   --header-text-color: #35393f;
+  --mark-text-color: #fccfc8;
+  --sel-text-color: #ff8572;
 }
 
-html[data-theme="dark"] {
-  --bg-color: #151619;
-  --deeper-bg-color: #1d1f22;
-  --text-color: #c1c4cb;
-  --sub-text-color: #c1c4cb;
-  --header-text-color: #ffffff;
+
+svg {
+  fill: $col-lightCyanBlue;
+  &:hover {
+    fill: $col-mediumDarkCyanBlue
+  }
 }
+
+.hlta-container {
+  position: relative;
+  text-size-adjust: none;
+
+  .hlta-backdrop {
+    position: absolute;
+    overflow: hidden;
+    border-color: transparent;
+  }
+
+  .hlta-highlight {
+    color: transparent !important;
+    word-wrap: break-word !important;
+
+    > * {
+      display: none;
+    }
+
+    > mark {
+      background-color: var(--mark-text-color);
+      display: inline-block;
+
+      &.sel {
+        background-color: var(--sel-text-color);
+      }
+    }
+  }
+
+  > .hlta-textarea {
+    position: relative;
+    background: none transparent !important;
+  }
+}
+
