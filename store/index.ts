@@ -88,11 +88,14 @@ export const useStore = defineStore('store', () => {
   }
 
   const navigateCurrentNote = async (id?: string) => {
+    const route = useRoute()
+
     await navigateTo({
       path: '/',
       query: id
         ? {
-            note: id
+            note: id,
+            q: route.query.q
           }
         : {}
     })
