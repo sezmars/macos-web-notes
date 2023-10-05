@@ -21,7 +21,7 @@ watchEffect(() => {
 
   parsedText.value = parseMarkdown(rawText.value)
 
-  parsedText.value = domHighlighter(parsedText.value, searchResult!.toString())
+  parsedText.value = domHighlighter(parsedText.value, searchResult || '')
 })
 
 </script>
