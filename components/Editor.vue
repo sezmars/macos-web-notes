@@ -12,11 +12,26 @@ const createNewNote = async () => {
   await createNote()
 }
 
-const textarea = ref(null)
+const textarea = ref()
+const route = useRoute()
+
+let hilite: TextHighlight
+
+onUpdated(() => {
+  setTimeout(() => {
+    const searchResult = route.query.q
+    const sens = false // Case sensitive. Optional, default: false
+    const word = false // Perform a words only search. Optional, default: false
+
+    hilite?.search(searchResult?.toString() || '', sens, word)
+  }, 10)
+})
 
 onMounted(() => {
   if (textarea && textarea.value) {
     (textarea.value as HTMLTextAreaElement).focus()
+
+    hilite = new TextHighlight(textarea.value)
   }
 })
 </script>
@@ -27,6 +42,7 @@ onMounted(() => {
       ref="textarea"
       v-model="rawText"
       class="editor__area"
+      spellcheck="false"
       @input="saveNote(); createNewNote()"
     />
   </div>
@@ -47,7 +63,10 @@ onMounted(() => {
 
     border: none;
     outline: none;
-    resize: none;
+    resize: both;
+
+    height: calc(100vh - 50px);;
+    width: calc(100% - 34px);
 
     @include font(1.4rem, 1.6rem);
   }

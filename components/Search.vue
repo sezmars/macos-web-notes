@@ -10,7 +10,7 @@ const search = async () => {
 
   await navigateTo({
     path: '/',
-    query: { q: value }
+    query: { q: value, note: route.query.note }
   })
 
   await searchNotes(value)
