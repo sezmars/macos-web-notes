@@ -20,16 +20,17 @@
     "@types/node": "^18",
     "eslint": "^8.49.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "gh-pages": "^4.0.0",
     "nuxt": "^3.7.1",
     "sass": "^1.67.0",
-    "typescript": "^5.2.2",
-    "gh-pages": "^4.0.0"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@nuxtjs/device": "^3.1.1",
     "@pinia/nuxt": "^0.4.11",
     "@types/remarkable": "^2.0.3",
     "pinia": "^2.1.6",
-    "remarkable": "^2.0.1"
+    "remarkable": "^2.0.1",
+    "search-text-highlight": "^1.0.36"
   }
 }

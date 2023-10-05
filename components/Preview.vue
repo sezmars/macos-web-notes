@@ -3,6 +3,8 @@ import { Remarkable } from 'remarkable'
 
 const { rawText, parsedText, isPreviewActive } = storeToRefs(useStore())
 
+const route = useRoute()
+
 const md = new Remarkable({
   html: true,
   breaks: true,
@@ -15,8 +17,13 @@ const parseMarkdown = (text: string) => {
 }
 
 watchEffect(() => {
+  const searchResult = route.query.q
+
   parsedText.value = parseMarkdown(rawText.value)
+
+  parsedText.value = domHighlighter(parsedText.value, searchResult!.toString())
 })
+
 </script>
 
 <template>

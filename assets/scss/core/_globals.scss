@@ -64,3 +64,9 @@ svg {
   }
 }
 
+.text-highlight {
+  background-color: var(--mark-text-color);
+  border-radius: 2px;
+  padding: 0 2px;
+  border: var(--sel-text-color);
+}
